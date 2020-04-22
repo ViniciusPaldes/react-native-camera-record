@@ -3,6 +3,5 @@ export type RootParamList = {
 }
 
 export type PrimaryParamList = {
-  welcome: undefined
-  demo: undefined
+  mainScreen: undefined
 }

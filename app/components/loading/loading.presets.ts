@@ -1,0 +1,3 @@
+const LOADING = {}
+
+export { LOADING }

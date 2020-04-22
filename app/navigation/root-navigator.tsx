@@ -1,7 +1,7 @@
 import React from "react"
 import { NavigationContainer, NavigationContainerRef } from "@react-navigation/native"
-
 import { createNativeStackNavigator } from "react-native-screens/native-stack"
+
 import { RootParamList } from "./types"
 import { PrimaryNavigator } from "./primary-navigator"
 

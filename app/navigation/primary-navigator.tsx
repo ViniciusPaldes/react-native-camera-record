@@ -1,8 +1,8 @@
 import React from "react"
-
 import { createNativeStackNavigator } from "react-native-screens/native-stack"
-import { WelcomeScreen, DemoScreen } from "../screens"
+
 import { PrimaryParamList } from "./types"
+import { MainScreen } from "~/screens"
 
 const Stack = createNativeStackNavigator<PrimaryParamList>()
 
@@ -14,8 +14,7 @@ export function PrimaryNavigator() {
         gestureEnabled: true,
       }}
     >
-      <Stack.Screen name="welcome" component={WelcomeScreen} />
-      <Stack.Screen name="demo" component={DemoScreen} />
+      <Stack.Screen name="mainScreen" component={MainScreen} />
     </Stack.Navigator>
   )
 }

@@ -131,8 +131,9 @@ android {
         applicationId "com.camerarecord"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+        missingDimensionStrategy 'react-native-camera', 'general'
         versionCode 1
-        versionName "1.0"
+        versionName "0.1.0"
     }
     splits {
         abi {

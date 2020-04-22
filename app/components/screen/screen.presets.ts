@@ -1,12 +1,17 @@
 import { ViewStyle } from "react-native"
 import { isNil } from "ramda"
-import { color } from "../../theme"
+
+import { color, spacing } from "~/theme"
+import { isIos, isNewScreeniPhones } from "~/utils/device"
 
 /**
  * All screen keyboard offsets.
  */
 export const offsets = {
   none: 0,
+  forwardButton: spacing[9],
+  login: spacing[2],
+  button: isIos && isNewScreeniPhones ? 5 : 20,
 }
 
 /**
@@ -24,7 +29,7 @@ export const presets = {
    */
   fixed: {
     outer: {
-      backgroundColor: color.background,
+      backgroundColor: color.palette.white,
       flex: 1,
       height: "100%",
     } as ViewStyle,
@@ -43,7 +48,7 @@ export const presets = {
    */
   scroll: {
     outer: {
-      backgroundColor: color.background,
+      backgroundColor: color.palette.white,
       flex: 1,
       height: "100%",
     } as ViewStyle,

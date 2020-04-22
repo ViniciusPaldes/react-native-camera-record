@@ -1,11 +1,13 @@
 import Tron from "reactotron-react-native"
 import AsyncStorage from "@react-native-community/async-storage"
-import { RootStore } from "../../models/root-store/root-store"
 import { onSnapshot } from "mobx-state-tree"
-import { ReactotronConfig, DEFAULT_REACTOTRON_CONFIG } from "./reactotron-config"
 import { mst } from "reactotron-mst"
+
+import { RootStore } from "../../models/root-store/root-store"
 import { clear } from "../../utils/storage"
 import { RootNavigation } from "../../navigation"
+
+import { ReactotronConfig, DEFAULT_REACTOTRON_CONFIG } from "./reactotron-config"
 
 // Teach TypeScript about the bad things we want to do.
 declare global {

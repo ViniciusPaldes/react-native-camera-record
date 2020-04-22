@@ -3,10 +3,11 @@
 
 import * as React from "react"
 import { storiesOf } from "@storybook/react-native"
-import { StoryScreen, Story, UseCase } from "../../../storybook/views"
-import { Text, TextField } from "../"
 import { State } from "react-powerplug"
 import { ViewStyle, TextStyle, Alert } from "react-native"
+
+import { StoryScreen, Story, UseCase } from "~/../storybook/views"
+import { Text, TextField } from "~/components"
 
 declare let module
 

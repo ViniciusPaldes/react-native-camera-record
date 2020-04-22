@@ -1,6 +1,7 @@
-import { withStatus } from "./with-status"
 import { types } from "mobx-state-tree"
 import { reaction, isObservableProp } from "mobx"
+
+import { withStatus } from "./with-status"
 
 const ThingModel = types
   .model("Thing")

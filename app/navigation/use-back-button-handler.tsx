@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react"
 import { BackHandler } from "react-native"
 import { NavigationContainerRef } from "@react-navigation/native"
+
 import getActiveRouteName from "./get-active-routename"
 
 export function useBackButtonHandler(

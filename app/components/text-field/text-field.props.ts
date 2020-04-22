@@ -1,4 +1,4 @@
-import { TextInputProps, TextStyle, ViewStyle } from "react-native"
+import { TextInputProps, TextStyle, ViewStyle, TextProps } from "react-native"
 
 export interface TextFieldProps extends TextInputProps {
   /**
@@ -16,10 +16,19 @@ export interface TextFieldProps extends TextInputProps {
    */
   labelTx?: string
 
+  highlightTx?: string
+
+  highlightText?: string
+
   /**
    * The label text if no labelTx is provided.
    */
   label?: string
+
+  /**
+   * The label text if no labelTx is provided.
+   */
+  labelProps?: TextProps
 
   /**
    * Optional container style overrides useful for margins & padding.

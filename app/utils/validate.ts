@@ -1,4 +1,5 @@
 import { contains } from "ramda"
+
 const ValidateJS = require("validate.js")
 
 // HACK(steve): wierd typescript situation because of strange typings
