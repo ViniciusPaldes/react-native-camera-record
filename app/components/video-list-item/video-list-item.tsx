@@ -10,8 +10,9 @@ import { VideoListItemProps } from "./video-list-item.props"
 
 export function VideoListItem(props: VideoListItemProps) {
   const { onPress, id, uri, date } = props
+
   return (
-    <TouchableOpacity style={styles.root} onPress={onPress} >
+    <TouchableOpacity style={styles.root} onPress={onPress}>
       <View style={styles.labels}>
         <Text style={styles.label} numberOfLines={1} ellipsizeMode="tail" text={id}/>
         <Text style={styles.label} numberOfLines={1} ellipsizeMode="tail" text={uri}/>

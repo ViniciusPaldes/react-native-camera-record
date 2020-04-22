@@ -2,8 +2,6 @@ import { Instance, SnapshotOut, types } from "mobx-state-tree"
 
 import { VideoItemModel } from "../video-item"
 
-const uuid = require('react-native-uuid')
-
 /**
  * Model description here for TypeScript hints.
  */
@@ -14,9 +12,9 @@ export const VideoListModel = types
   })
   .views(self => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
   .actions(self => ({
-    addItem(url: string, date: Date) {
+    addItem(id: string, url: string, date: Date) {
       const videoItem = VideoItemModel.create()
-      videoItem.setId(uuid.v4())
+      videoItem.setId(id)
       videoItem.setUrl(url)
       videoItem.setDate(date)
       self.list.push(videoItem)

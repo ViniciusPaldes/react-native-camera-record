@@ -1,7 +1,9 @@
 import React from "react"
 import { createNativeStackNavigator } from "react-native-screens/native-stack"
 
-import { MainScreen } from "~/screens"
+import { MainScreen, VideoPlayerScreen } from "~/screens"
+import { translate } from "~/i18n"
+import { color } from "~/theme"
 
 import { PrimaryParamList } from "./types"
 
@@ -11,11 +13,27 @@ export function PrimaryNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: false,
         gestureEnabled: true,
+        headerBackTitle: "Back",
+        headerStyle: { backgroundColor: color.palette.primary },
+        headerTintColor: color.palette.white,
+        headerTitleStyle: { fontFamily: "Montserrat-Medium" }
       }}
     >
-      <Stack.Screen name="mainScreen" component={MainScreen} />
+      <Stack.Screen
+        name="main"
+        component={MainScreen}
+        options={{
+          title: translate("mainScreen.title")
+        }}
+      />
+      <Stack.Screen
+        name="videoPlayer"
+        component={VideoPlayerScreen}
+        options={{
+          title: translate("videoPlayer.title")
+        }}
+      />
     </Stack.Navigator>
   )
 }
@@ -27,4 +45,4 @@ export function PrimaryNavigator() {
  * Anything not on this list will be a standard `back` action in
  * react-navigation.
  */
-export const exitRoutes: string[] = ["welcome"]
+export const exitRoutes: string[] = ["main"]

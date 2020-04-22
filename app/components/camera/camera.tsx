@@ -1,6 +1,7 @@
 import React, { useRef, useState, useMemo } from "react"
 import { Modal, View, TextStyle } from "react-native"
 import { RNCamera } from "react-native-camera"
+import RNFS from "react-native-fs"
 
 import { color } from "~/theme"
 import { FullButton, EmptyList, RoundButton } from "~/components"
@@ -11,6 +12,8 @@ import { useStores } from "~/models/root-store"
 
 import { CameraProps } from "./camera.props"
 import { styles } from "./camera.presets"
+
+const uuid = require('react-native-uuid')
 
 export function Camera(props: CameraProps) {
   const { open, close, ...rest } = props
@@ -68,9 +71,20 @@ export function Camera(props: CameraProps) {
     if (recording) {
       cameraRef.current.stopRecording()
     } else {
-      const file = await cameraRef.current.recordAsync()
-      videoListStore.addItem(file.uri, new Date())
-      close()
+      cameraRef.current.recordAsync().then(file => {
+        console.tron.log("Video Has Ended")
+        const id = uuid.v4()
+        // const destinationPath = RNFS.DocumentDirectoryPath + id
+        // console.tron.log("DestinationPath", destinationPath)
+        // // var decodedURL = decodeURIComponent(file.uri)
+        // RNFS.copyFile(file.uri, destinationPath).then(() => {
+        //   console.tron.log("Video Copied Succesfully")
+        videoListStore.addItem(id, file.uri, new Date())
+        close()
+        // }, error => {
+        //   console.tron.log("Error while copying video", error)
+        // })
+      })
     }
   }
 

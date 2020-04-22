@@ -20,7 +20,7 @@ export const MainScreen: React.FunctionComponent<MainScreenProps> = props => {
   }
 
   const runVideo = (i) => {
-    console.tron.log('Run this video', i)
+    props.navigation.navigate("videoPlayer", { item: i.item })
   }
 
   return (

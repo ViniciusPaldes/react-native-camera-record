@@ -4,9 +4,13 @@
     "field": "Field"
   },
   "mainScreen": {
+    "title": "Video List",
     "open": "Start Recording",
     "cancel": "Cancel",
     "emptyList": "There is no video recorded.\n\nPlease record a new one touching in the button below"
+  },
+  "videoPlayer": {
+    "title": "Video Player"
   },
   "camera": {
     "permission": {
