@@ -3,7 +3,7 @@ import { ViewStyle, TextStyle } from "react-native"
 import { color, spacing } from "~/theme"
 
 const BUTTON: ViewStyle = {
-  backgroundColor: color.palette.secundaria,
+  backgroundColor: color.palette.secondary,
   borderRadius: 2,
   height: spacing[8],
   paddingHorizontal: spacing[3],

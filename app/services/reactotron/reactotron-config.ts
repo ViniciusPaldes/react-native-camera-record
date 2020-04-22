@@ -1,3 +1,5 @@
+import { NativeModules } from 'react-native'
+
 export interface ReactotronConfig {
   /** The name of the app. */
   name?: string
@@ -16,12 +18,18 @@ export interface ReactotronConfig {
   }
 }
 
+let scriptHostname
+if (__DEV__) {
+  const scriptURL = NativeModules.SourceCode.scriptURL
+  scriptHostname = scriptURL.split('://')[1].split(':')[0]
+}
+
 /**
  * The default Reactotron configuration.
  */
 export const DEFAULT_REACTOTRON_CONFIG: ReactotronConfig = {
   clearOnLoad: true,
-  host: "localhost",
+  host: scriptHostname,
   useAsyncStorage: true,
   state: {
     initial: true,

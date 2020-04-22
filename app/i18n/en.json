@@ -4,7 +4,9 @@
     "field": "Field"
   },
   "mainScreen": {
-    "open": "Start Recording"
+    "open": "Start Recording",
+    "cancel": "Cancel",
+    "emptyList": "There is no video recorded.\n\nPlease record a new one touching in the button below"
   },
   "camera": {
     "permission": {
@@ -20,6 +22,7 @@
       "buttonNegative": "Cancelar"
     },
     "resizeErrorTitle": "Erro ao redimensionar imagem",
-    "resizeErrorMessage": "Houve um erro ao tentar redimensionar a imagem, tente novamente"
+    "resizeErrorMessage": "Houve um erro ao tentar redimensionar a imagem, tente novamente",
+    "permissionDenied": "Camera usage was denied"
   }
 }

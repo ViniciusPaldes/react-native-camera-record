@@ -1,27 +1,44 @@
-import { ViewStyle, TextStyle } from "react-native"
+import { StyleSheet } from "react-native"
 
 import { color, spacing } from "~/theme"
 
-const TOUCHABLE_CONTAINER: ViewStyle = {
-  flex: 1,
-}
+export const styles = StyleSheet.create({
+  camera: {
+    flex: 1,
+  },
 
-const CAMERA: ViewStyle = {
-  flex: 1,
-}
+  location: {
+    backgroundColor: color.palette.black54,
+    color: color.palette.white,
+    margin: spacing[3],
+    padding: spacing[3]
+  },
 
-const NOT_AUTHORIZED: ViewStyle = {
-  flex: 1,
-  backgroundColor: color.palette.white,
-}
+  notAuthorized: {
+    backgroundColor: color.palette.white,
+    flex: 1,
+  },
 
-const FLASH_BUTTON: ViewStyle = {
-  position: "absolute",
-  bottom: 0,
-  right: 0,
-  margin: spacing[3],
-}
+  recordIcon: {},
 
-const FLASH_ICON: TextStyle = {}
+  startButton: {
+    alignSelf: "center",
+    bottom: 0,
+    margin: spacing[3],
+    position: "absolute",
+  },
 
-export { TOUCHABLE_CONTAINER, CAMERA, NOT_AUTHORIZED, FLASH_BUTTON, FLASH_ICON }
+  touchableContainer: {
+    flex: 1,
+  },
+
+  typeButton: {
+    bottom: 0,
+    margin: spacing[3],
+    position: "absolute",
+    right: 0,
+  },
+
+  typeIcon: {}
+
+})

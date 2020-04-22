@@ -1,8 +1,9 @@
 import React from "react"
 import { createNativeStackNavigator } from "react-native-screens/native-stack"
 
-import { PrimaryParamList } from "./types"
 import { MainScreen } from "~/screens"
+
+import { PrimaryParamList } from "./types"
 
 const Stack = createNativeStackNavigator<PrimaryParamList>()
 

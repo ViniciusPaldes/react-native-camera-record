@@ -5,35 +5,44 @@ import { RNCamera } from "react-native-camera"
 import { color } from "~/theme"
 import { FullButton, EmptyList, RoundButton } from "~/components"
 import { scannerPermissionsOptions } from "~/constants/camera"
+import { translate } from "~/i18n"
+import { Text } from "../text"
+import { useStores } from "~/models/root-store"
 
-import {
-  TOUCHABLE_CONTAINER,
-  CAMERA,
-  NOT_AUTHORIZED,
-  FLASH_BUTTON,
-  FLASH_ICON,
-} from "./camera.presets"
 import { CameraProps } from "./camera.props"
+import { styles } from "./camera.presets"
 
 export function Camera(props: CameraProps) {
   const { open, close, ...rest } = props
 
-  const [flashMode, setFlashMode] = useState(RNCamera.Constants.FlashMode.off)
+  const { videoListStore } = useStores()
 
-  const flashStyle = useMemo(() => {
-    let style: TextStyle = FLASH_ICON
+  const [cameraType, setCameraType] = useState(RNCamera.Constants.Type.back)
+  const [recording, setRecording] = useState(false)
 
-    switch (flashMode) {
-      case RNCamera.Constants.FlashMode.off:
-        break
-      case RNCamera.Constants.FlashMode.torch:
+  const typeStyle = useMemo(() => {
+    let style: TextStyle = styles.typeIcon
+
+    switch (cameraType) {
+      case RNCamera.Constants.Type.front:
         style = { ...style, color: color.palette.yellow }
+        break
+      case RNCamera.Constants.Type.back:
         break
       default:
     }
 
     return style
-  }, [flashMode])
+  }, [cameraType])
+
+  const recordStyle = useMemo(() => {
+    let style: TextStyle = styles.recordIcon
+
+    if (recording) {
+      style = { ...style, color: color.palette.yellow }
+    }
+    return style
+  }, [recording])
 
   const cameraRef = useRef<RNCamera>()
 
@@ -43,50 +52,77 @@ export function Camera(props: CameraProps) {
     }
   }
 
-  const handleFlashChange = () => {
-    switch (flashMode) {
-      case RNCamera.Constants.FlashMode.off:
-        setFlashMode(RNCamera.Constants.FlashMode.torch)
+  const handleTypeChange = () => {
+    switch (cameraType) {
+      case RNCamera.Constants.Type.back:
+        setCameraType(RNCamera.Constants.Type.front)
         break
-      case RNCamera.Constants.FlashMode.torch:
-        setFlashMode(RNCamera.Constants.FlashMode.off)
+      case RNCamera.Constants.Type.front:
+        setCameraType(RNCamera.Constants.Type.back)
         break
       default:
     }
   }
 
+  const record = async () => {
+    if (recording) {
+      cameraRef.current.stopRecording()
+    } else {
+      const file = await cameraRef.current.recordAsync()
+      videoListStore.addItem(file.uri, new Date())
+      close()
+    }
+  }
+
+  const handleStartRecording = (event) => {
+    console.tron.log("Event: ", event)
+    setRecording(true)
+  }
+
+  const handleStopRecording = () => {
+    setRecording(false)
+  }
+
   const NoAuthorizedView = () => (
-    <View style={NOT_AUTHORIZED}>
+    <View style={styles.notAuthorized}>
       <EmptyList
-        onPress={AskPermission}
-        text="Utilização da câmera não autorizada, clique aqui para tentar novamente"
+        text={translate("camera.permissionDenied")}
       />
     </View>
   )
 
   return (
     <Modal visible={open} onRequestClose={close}>
-      <View style={TOUCHABLE_CONTAINER}>
+      <View style={styles.touchableContainer}>
         <>
           <RNCamera
-            style={CAMERA}
+            style={styles.camera}
             ref={cameraRef}
             captureAudio={false}
-            type={RNCamera.Constants.Type.back}
-            flashMode={flashMode}
+            type={cameraType}
             notAuthorizedView={<NoAuthorizedView />}
             androidCameraPermissionOptions={scannerPermissionsOptions}
+            onRecordingStart={(e) => handleStartRecording(e)}
+            onRecordingEnd={handleStopRecording}
             {...rest}
           >
             <RoundButton
-              icon="bolt"
-              onPress={handleFlashChange}
+              icon="video"
+              onPress={record}
               elevated
-              style={FLASH_BUTTON}
-              iconProps={{ style: flashStyle }}
+              style={styles.startButton}
+              iconProps={{ style: recordStyle }}
+            />
+
+            <RoundButton
+              icon="grin"
+              onPress={handleTypeChange}
+              elevated
+              style={styles.typeButton}
+              iconProps={{ style: typeStyle }}
             />
           </RNCamera>
-          <FullButton onPress={close}>Cancelar</FullButton>
+          <FullButton onPress={close}>{translate("mainScreen.cancel")}</FullButton>
         </>
       </View>
     </Modal>

@@ -1,20 +1,21 @@
-import { ViewStyle, TextStyle } from "react-native"
+import { StyleSheet } from "react-native"
 
 import { color } from "~/theme/color"
 import { spacing } from "~/theme"
 
-const EMPTY_LIST: ViewStyle = {
-  flex: 1,
-  padding: spacing[5],
-  justifyContent: "center",
-  alignItems: "center",
-}
+export const styles = StyleSheet.create({
+  root: {
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "center",
+    padding: spacing[5]
+  },
 
-const EMPTY_LIST_TX: TextStyle = {
-  color: color.palette.grey,
-  fontSize: spacing[3],
-  fontFamily: "Montserrat-Regular",
-  textAlign: "center",
-}
+  text: {
+    color: color.palette.grey,
+    fontFamily: "Montserrat",
+    fontSize: 18,
+    textAlign: "center"
+  }
 
-export { EMPTY_LIST, EMPTY_LIST_TX }
+})

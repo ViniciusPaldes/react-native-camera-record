@@ -1,11 +1,13 @@
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
 
+import { VideoListModel } from "../video-list"
+
 /**
  * A RootStore model.
  */
 // prettier-ignore
 export const RootStoreModel = types.model("RootStore").props({
-
+  videoListStore: types.optional(VideoListModel, {})
 })
 
 /**
