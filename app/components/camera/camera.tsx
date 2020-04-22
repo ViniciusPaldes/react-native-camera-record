@@ -1,19 +1,17 @@
 import React, { useRef, useState, useMemo } from "react"
 import { Modal, View, TextStyle } from "react-native"
 import { RNCamera } from "react-native-camera"
-import RNFS from "react-native-fs"
 
 import { color } from "~/theme"
 import { FullButton, EmptyList, RoundButton } from "~/components"
 import { scannerPermissionsOptions } from "~/constants/camera"
 import { translate } from "~/i18n"
-import { Text } from "../text"
 import { useStores } from "~/models/root-store"
 
 import { CameraProps } from "./camera.props"
 import { styles } from "./camera.presets"
 
-const uuid = require('react-native-uuid')
+const uuid = require("react-native-uuid")
 
 export function Camera(props: CameraProps) {
   const { open, close, ...rest } = props
@@ -49,12 +47,6 @@ export function Camera(props: CameraProps) {
 
   const cameraRef = useRef<RNCamera>()
 
-  const AskPermission = async () => {
-    if (cameraRef.current) {
-      await cameraRef.current.refreshAuthorizationStatus()
-    }
-  }
-
   const handleTypeChange = () => {
     switch (cameraType) {
       case RNCamera.Constants.Type.back:
@@ -72,24 +64,14 @@ export function Camera(props: CameraProps) {
       cameraRef.current.stopRecording()
     } else {
       cameraRef.current.recordAsync().then(file => {
-        console.tron.log("Video Has Ended")
         const id = uuid.v4()
-        // const destinationPath = RNFS.DocumentDirectoryPath + id
-        // console.tron.log("DestinationPath", destinationPath)
-        // // var decodedURL = decodeURIComponent(file.uri)
-        // RNFS.copyFile(file.uri, destinationPath).then(() => {
-        //   console.tron.log("Video Copied Succesfully")
         videoListStore.addItem(id, file.uri, new Date())
         close()
-        // }, error => {
-        //   console.tron.log("Error while copying video", error)
-        // })
       })
     }
   }
 
-  const handleStartRecording = (event) => {
-    console.tron.log("Event: ", event)
+  const handleStartRecording = () => {
     setRecording(true)
   }
 
@@ -99,9 +81,7 @@ export function Camera(props: CameraProps) {
 
   const NoAuthorizedView = () => (
     <View style={styles.notAuthorized}>
-      <EmptyList
-        text={translate("camera.permissionDenied")}
-      />
+      <EmptyList text={translate("camera.permissionDenied")} />
     </View>
   )
 
@@ -116,7 +96,7 @@ export function Camera(props: CameraProps) {
             type={cameraType}
             notAuthorizedView={<NoAuthorizedView />}
             androidCameraPermissionOptions={scannerPermissionsOptions}
-            onRecordingStart={(e) => handleStartRecording(e)}
+            onRecordingStart={handleStartRecording}
             onRecordingEnd={handleStopRecording}
             {...rest}
           >

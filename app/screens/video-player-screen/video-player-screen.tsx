@@ -1,5 +1,5 @@
 import React from "react"
-import Video from 'react-native-video'
+import Video from "react-native-video"
 import { StyleSheet } from "react-native"
 
 import { Screen, VideoListItem, Text } from "~/components"
@@ -13,6 +13,7 @@ export const VideoPlayerScreen: React.FunctionComponent<VideoPlayerScreenProps> 
   const { id, url, date } = item
 
   console.tron.log("data", id, url, date)
+  console.tron.log("just testing husky", id, url, date)
 
   let newUrl
   if (isIos) {
@@ -21,12 +22,12 @@ export const VideoPlayerScreen: React.FunctionComponent<VideoPlayerScreenProps> 
     newUrl = url
   }
 
-  console.tron.log('newUrl', newUrl)
+  console.tron.log("newUrl", newUrl)
   const onBuffer = () => {
     console.tron.log("onBuffer")
   }
 
-  const onError = (e) => {
+  const onError = e => {
     console.tron.log("OnError", e)
   }
 
@@ -35,8 +36,8 @@ export const VideoPlayerScreen: React.FunctionComponent<VideoPlayerScreenProps> 
   // console.tron.log('file', file)
   return (
     <Screen style={styles.root}>
-      <Text style={styles.text} text={id}/>
-      <VideoListItem id={id} uri={url} date={date}/>
+      <Text style={styles.text} text={id} />
+      <VideoListItem id={id} uri={url} date={date} />
       <Video
         source={{ uri: url }} // Can be a URL or a local file.
         style={StyleSheet.absoluteFill}

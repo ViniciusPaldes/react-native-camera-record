@@ -1,8 +1,10 @@
 import { StyleSheet } from "react-native"
 
+import { color } from "~/theme"
+
 export const styles = StyleSheet.create({
   background: {
-    backgroundColor: "rgba(0,0,0,0.7)",
+    backgroundColor: color.palette.black70,
     flex: 1,
-  }
+  },
 })
