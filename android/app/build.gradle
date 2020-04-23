@@ -132,6 +132,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         missingDimensionStrategy 'react-native-camera', 'general'
+        multiDexEnabled true
         versionCode 1
         versionName "0.1.0"
     }
@@ -183,6 +184,7 @@ dependencies {
     implementation project(':react-native-video')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation "com.android.support:multidex:1.0.3"
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
@@ -200,4 +202,8 @@ task copyDownloadableDepsToLibs(type: Copy) {
     into 'libs'
 }
 
-apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+project.ext.vectoricons = [
+    iconFontNames: [ 'FontAwesome.ttf', 'FontAwesome5_Brands.ttf', 'FontAwesome5_Regular.ttf', 'FontAwesome5_Solid.ttf' ] // Name of the font files you want to copy
+]
+
+apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"; applyNativeModulesAppBuildGradle(project)
