@@ -116,7 +116,7 @@ export function Camera(props: CameraProps) {
             androidCameraPermissionOptions={scannerPermissionsOptions}
             onRecordingStart={handleStartRecording}
             onRecordingEnd={handleStopRecording}
-            playSoundOnCapture={true}
+            playSoundOnCapture={false}
             {...rest}
           >
             <RoundButton
