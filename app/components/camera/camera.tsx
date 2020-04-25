@@ -16,7 +16,7 @@ const uuid = require("react-native-uuid")
 export function Camera(props: CameraProps) {
   const { open, close, ...rest } = props
 
-  const { videoListStore } = useStores()
+  const { videoListStore, recordStore } = useStores()
 
   const [cameraType, setCameraType] = useState(RNCamera.Constants.Type.back)
   const [recording, setRecording] = useState(false)
@@ -50,33 +50,52 @@ export function Camera(props: CameraProps) {
   const handleTypeChange = () => {
     switch (cameraType) {
       case RNCamera.Constants.Type.back:
+        recordStore.setEndedByChanging(true)
         setCameraType(RNCamera.Constants.Type.front)
         break
       case RNCamera.Constants.Type.front:
+        recordStore.setEndedByChanging(true)
         setCameraType(RNCamera.Constants.Type.back)
         break
       default:
     }
   }
 
+  const handleStopRecording = () => {
+    setRecording(false)
+  }
+
+  /**
+   * Recursive method to record videos until the user stop to record
+   */
+  const recordVideo = () => {
+    recordStore.setEndedByChanging(false)
+    cameraRef.current.recordAsync().then(file => {
+      console.tron.log("Ended to record", recordStore.endedByChanging)
+      if (recordStore.endedByChanging) {
+        // This means that the user fliped the camera, so start it again the recording
+        const id = uuid.v4()
+        videoListStore.addItem(id, file.uri, new Date())
+        recordVideo()
+      } else {
+        handleStopRecording()
+        const id = uuid.v4()
+        videoListStore.addItem(id, file.uri, new Date())
+        close()
+      }
+    })
+  }
+
   const record = async () => {
     if (recording) {
       cameraRef.current.stopRecording()
     } else {
-      cameraRef.current.recordAsync().then(file => {
-        const id = uuid.v4()
-        videoListStore.addItem(id, file.uri, new Date())
-        close()
-      })
+      recordVideo()
     }
   }
 
   const handleStartRecording = () => {
     setRecording(true)
-  }
-
-  const handleStopRecording = () => {
-    setRecording(false)
   }
 
   const NoAuthorizedView = () => (
