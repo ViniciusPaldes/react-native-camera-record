@@ -4,29 +4,21 @@
     "field": "Field"
   },
   "mainScreen": {
-    "title": "Video List",
-    "open": "Start Recording",
+    "title": "Live List",
+    "open": "Live now",
     "cancel": "Cancel",
-    "emptyList": "There is no video recorded.\n\nPlease record a new one touching in the button below"
+    "emptyList": "There is no live recorded.\n\nPlease record a new one by touching in the button below"
   },
   "videoPlayer": {
-    "title": "Video Player"
+    "title": "Your live"
   },
   "camera": {
     "permission": {
-      "title": "Permissão para usar a câmera",
-      "message": "O GINPA requer acesso a sua câmera para tirar foto",
+      "title": "Permission to use Camera",
+      "message": "We need to access your camera to record your live",
       "buttonPositive": "Ok",
-      "buttonNegative": "Cancelar"
+      "buttonNegative": "Cancel"
     },
-    "scannerPermission": {
-      "title": "Permissão para usar a câmera",
-      "message": "O GINPA requer acesso a sua câmera para ler o código de barra",
-      "buttonPositive": "Ok",
-      "buttonNegative": "Cancelar"
-    },
-    "resizeErrorTitle": "Erro ao redimensionar imagem",
-    "resizeErrorMessage": "Houve um erro ao tentar redimensionar a imagem, tente novamente",
     "permissionDenied": "Camera usage was denied"
   }
 }

@@ -16,7 +16,7 @@ const uuid = require("react-native-uuid")
 export function Camera(props: CameraProps) {
   const { open, close, ...rest } = props
 
-  const { videoListStore, recordStore } = useStores()
+  const { recordStore, liveListStore } = useStores()
 
   const [cameraType, setCameraType] = useState(RNCamera.Constants.Type.back)
   const [recording, setRecording] = useState(false)
@@ -74,13 +74,11 @@ export function Camera(props: CameraProps) {
       console.tron.log("Ended to record", recordStore.endedByChanging)
       if (recordStore.endedByChanging) {
         // This means that the user fliped the camera, so start it again the recording
-        const id = uuid.v4()
-        videoListStore.addItem(id, file.uri, new Date())
+        liveListStore.addVideoIntoLive(recordStore.recordingIdLive, uuid.v4(), file.uri, new Date())
         recordVideo()
       } else {
         handleStopRecording()
-        const id = uuid.v4()
-        videoListStore.addItem(id, file.uri, new Date())
+        liveListStore.addVideoIntoLive(recordStore.recordingIdLive, uuid.v4(), file.uri, new Date())
         close()
       }
     })
@@ -90,6 +88,7 @@ export function Camera(props: CameraProps) {
     if (recording) {
       cameraRef.current.stopRecording()
     } else {
+      recordStore.setRecordingIdLive(liveListStore.createLive())
       recordVideo()
     }
   }
@@ -111,12 +110,13 @@ export function Camera(props: CameraProps) {
           <RNCamera
             style={styles.camera}
             ref={cameraRef}
-            captureAudio={false}
+            captureAudio={true}
             type={cameraType}
             notAuthorizedView={<NoAuthorizedView />}
             androidCameraPermissionOptions={scannerPermissionsOptions}
             onRecordingStart={handleStartRecording}
             onRecordingEnd={handleStopRecording}
+            playSoundOnCapture={true}
             {...rest}
           >
             <RoundButton

@@ -1,48 +1,48 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import Video from "react-native-video"
 import { StyleSheet } from "react-native"
 
-import { Screen, VideoListItem, Text } from "~/components"
-import { isIos } from "~/utils/device"
+import { Screen } from "~/components"
 
 import { VideoPlayerScreenProps } from "./video-player-screen.props"
 import { styles } from "./video-player-screen.presets"
 
 export const VideoPlayerScreen: React.FunctionComponent<VideoPlayerScreenProps> = props => {
   const { item } = props.route.params
-  const { id, url, date } = item
+  const { videoList } = item
 
-  console.tron.log("data", id, url, date)
-  console.tron.log("just testing husky", id, url, date)
+  const [currentVideo, setCurrentVideo] = useState(0)
+  const [currrentUrl, setCurrentUrl] = useState(videoList.list[0].url)
 
-  let newUrl
-  if (isIos) {
-    newUrl = url.replace("file://", "")
-  } else {
-    newUrl = url
-  }
-
-  console.tron.log("newUrl", newUrl)
   const onBuffer = () => {
-    console.tron.log("onBuffer")
+    __DEV__ && console.tron.log("onBuffer")
   }
 
   const onError = e => {
-    console.tron.log("OnError", e)
+    __DEV__ && console.tron.log("OnError", e)
   }
 
-  // const file = require(url)
+  useEffect(() => {
+    setCurrentUrl(videoList.list[currentVideo].url)
+  }, [currentVideo])
 
-  // console.tron.log('file', file)
+  /**
+   * When end , play the next video in the list
+   */
+  const onEnd = () => {
+    if (currentVideo + 1 < videoList.list.length) {
+      setCurrentVideo(currentVideo + 1)
+    }
+  }
+
   return (
     <Screen style={styles.root}>
-      <Text style={styles.text} text={id} />
-      <VideoListItem id={id} uri={url} date={date} />
       <Video
-        source={{ uri: url }} // Can be a URL or a local file.
+        source={{ uri: currrentUrl }}
         style={StyleSheet.absoluteFill}
-        onBuffer={onBuffer} // Callback when remote video is buffering
+        onBuffer={onBuffer}
         onError={onError}
+        onEnd={onEnd}
         resizeMode="cover"
       />
     </Screen>
