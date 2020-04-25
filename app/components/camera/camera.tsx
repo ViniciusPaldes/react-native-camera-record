@@ -71,7 +71,7 @@ export function Camera(props: CameraProps) {
   const recordVideo = () => {
     recordStore.setEndedByChanging(false)
     cameraRef.current.recordAsync().then(file => {
-      console.tron.log("Ended to record", recordStore.endedByChanging)
+      __DEV__ && console.tron.log("Ended to record", recordStore.endedByChanging)
       if (recordStore.endedByChanging) {
         // This means that the user fliped the camera, so start it again the recording
         liveListStore.addVideoIntoLive(recordStore.recordingIdLive, uuid.v4(), file.uri, new Date())
