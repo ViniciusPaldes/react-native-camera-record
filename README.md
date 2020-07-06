@@ -2,7 +2,6 @@
 
 Hello I'm Vinícius Paldês, Mobile Software Architect. This repo is intended to show my skills using React-Native. 
 
-Check my LinkedIn profile at: https://www.linkedin.com/in/vinicius-paldês-42981734/
 
 # What is Camera Record
   
